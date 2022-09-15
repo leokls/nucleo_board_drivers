@@ -1,0 +1,17 @@
+16:49:14 **** Incremental Build of configuration Debug for project 19_general_timer_interrupt ****
+make -j8 all 
+arm-none-eabi-gcc "../Src/uart.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DNUCLEO_F411RE -DSTM32 -DSTM32F4 -DSTM32F411RETx -DSTM32F411xE -c -I../Inc -I"C:/FProject/mcu_header_files/CMSIS/Device/ST/STM32F4xx/Include" -I"C:/FProject/mcu_header_files/CMSIS/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/uart.d" -MT"Src/uart.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/uart.o"
+arm-none-eabi-gcc -o "19_general_timer_interrupt.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\FProject\19_general_timer_interrupt\STM32F411RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="19_general_timer_interrupt.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: 19_general_timer_interrupt.elf
+ 
+arm-none-eabi-size   19_general_timer_interrupt.elf 
+arm-none-eabi-objdump -h -S  19_general_timer_interrupt.elf  > "19_general_timer_interrupt.list"
+   text	   data	    bss	    dec	    hex	filename
+   5784	    108	   1588	   7480	   1d38	19_general_timer_interrupt.elf
+Finished building: default.size.stdout
+ 
+Finished building: 19_general_timer_interrupt.list
+ 
+
+16:49:15 Build Finished. 0 errors, 0 warnings. (took 601ms)
+

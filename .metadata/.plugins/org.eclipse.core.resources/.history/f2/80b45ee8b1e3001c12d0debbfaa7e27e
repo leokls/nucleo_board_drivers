@@ -1,0 +1,37 @@
+#include <stdint.h>
+#include <stdio.h>
+
+#include "uart.h"
+#include "constants.h"
+
+// ------- --------- --------- --------- --------- --------- --------- --------
+char keyboardReads;
+char targetKey = '1';
+int main(void)
+{
+	// 1. Enable the RCC clock access to the user LED.
+	RCC->AHB1ENR |= GPIOAEN_BIT;
+
+	// 2. Set the user LED as output pin.
+	// MODER5[1:0] at bits 10 and 11
+	GPIOA->MODER |= BIT_10;
+	GPIOA->MODER &= ~BIT_11;
+
+	uart2_rxtx_init();
+
+	while (1)
+	{
+		keyboardReads = uart2_read();
+
+		if (keyboardReads == targetKey)
+		{
+			// Turn the user LED on.
+			GPIOA->ODR |= LD2;
+		}
+		else
+		{
+			// Turn the user LED off.
+			GPIOA->ODR &= ~LD2;
+		}
+	}
+}

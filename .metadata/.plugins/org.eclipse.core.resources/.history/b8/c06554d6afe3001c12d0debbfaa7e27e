@@ -1,0 +1,58 @@
+#include "uart.h"
+
+#define __IO volatile
+
+// ------- --------- --------- --------- --------- --------- --------- --------
+// Define the GPIO peripheral as a structure and registers as its members.
+// RM0383-STM32F411XCE-REFERENCE-MANUAL.PDF, 8.4 GPIO registers.
+typedef struct
+{
+  __IO uint32_t MODER;    /*!< GPIO port mode register,                 Address offset: 0x00      */
+  volatile uint32_t PLACEHOLDER[4];
+  __IO uint32_t ODR;      /*!< GPIO port output data register,          Address offset: 0x14      */
+  volatile uint32_t PLACEHOLDER2[2];
+  __IO uint32_t AFR[2];   /*!< GPIO alternate function registers,     Address offset: 0x20-0x24 */
+} GPIO_TypeDef;
+
+// Define the Universal synchronous asynchronous receiver transmitter registers
+// RM0383-STM32F411XCE-REFERENCE-MANUAL.PDF, 19.6 USART registers
+typedef struct
+{
+  __IO uint32_t SR;         /*!< USART Status register,	                							Address offset: 0x00 */
+  __IO uint32_t DR;         /*!< USART Data register,                    							Address offset: 0x04 */
+  __IO uint32_t BRR;        /*!< USART Baud rate register,                							Address offset: 0x08 */
+  __IO uint32_t CR1;        /*!< USART Control register 1,                							Address offset: 0x0C */
+  __IO uint32_t CR2;        /*!< USART Control register 2,                							Address offset: 0x10 */
+  __IO uint32_t CR3;        /*!< USART Control register 3,               							Address offset: 0x14 */
+  __IO uint32_t GTPR;       /*!< USART Guard time and prescaler register, 							Address offset: 0x18 */
+} USART_TypeDef;
+
+// ------- --------- --------- --------- --------- --------- --------- --------
+// Define the Reset and clock control (RCC) registers.
+// RM0383-STM32F411XCE-REFERENCE-MANUAL.PDF, 6.3 RCC registers.
+typedef struct
+{
+	volatile uint32_t PLACEHOLDER[12]; 															   // unused registers
+  __IO uint32_t AHB1ENR;       /*!< RCC AHB1 peripheral clock register,                            Address offset: 0x30 */
+  __IO uint32_t AHB2ENR;       /*!< RCC AHB2 peripheral clock register,                            Address offset: 0x34 */
+  __IO uint32_t AHB3ENR;       /*!< RCC AHB3 peripheral clock register,                            Address offset: 0x38 */
+  uint32_t      RESERVED2;     /*!< Reserved, 0x3C                                                                      */
+  __IO uint32_t APB1ENR;       /*!< RCC APB1 peripheral clock enable register,                     Address offset: 0x40 */
+} RCC_TypeDef;
+
+#define RCC 	((RCC_TypeDef *)  RCC_BASE)
+#define GPIOA	((GPIO_TypeDef *) GPIOA_BASE)
+#define USART2  ((USART_TypeDef *) USART2_BASE)
+
+// ------- --------- --------- --------- --------- --------- --------- --------
+static uint16_t compute_uart_bd(uint32_t PeriphClk, uint32_t Baudrate);
+static void uart_set_baudrate(USART_TypeDef *USARTx, uint32_t PeriphClk, uint32_t Baudrate);
+void uart2_rxtx_init(void);
+void uart2_write(int ch);
+char uart2_read(void);
+
+int __io_putchar(int ch)
+{
+	uart2_write(ch);
+	return(ch);
+}

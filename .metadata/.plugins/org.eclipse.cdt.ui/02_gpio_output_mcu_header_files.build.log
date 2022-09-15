@@ -1,0 +1,10 @@
+01:49:28 **** Build of configuration Debug for project 02_gpio_output_mcu_header_files ****
+make -j8 all 
+arm-none-eabi-size   02_gpio_output_mcu_header_files.elf 
+   text	   data	    bss	    dec	    hex	filename
+    740	      8	   1568	   2316	    90c	02_gpio_output_mcu_header_files.elf
+Finished building: default.size.stdout
+ 
+
+01:49:28 Build Finished. 0 errors, 0 warnings. (took 184ms)
+

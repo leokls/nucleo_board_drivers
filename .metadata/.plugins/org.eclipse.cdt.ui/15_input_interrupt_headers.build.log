@@ -1,0 +1,10 @@
+12:04:22 **** Incremental Build of configuration Debug for project 15_input_interrupt_headers ****
+make -j8 all 
+arm-none-eabi-size   15_input_interrupt_headers.elf 
+   text	   data	    bss	    dec	    hex	filename
+   1116	      8	   1568	   2692	    a84	15_input_interrupt_headers.elf
+Finished building: default.size.stdout
+ 
+
+12:04:23 Build Finished. 0 errors, 0 warnings. (took 193ms)
+

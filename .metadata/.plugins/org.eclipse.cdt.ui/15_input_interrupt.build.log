@@ -1,0 +1,86 @@
+01:26:10 **** Incremental Build of configuration Debug for project 15_input_interrupt ****
+make -j8 all 
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DNUCLEO_F411RE -DSTM32 -DSTM32F4 -DSTM32F411RETx -c -I../Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
+In file included from ../Src/main.c:3:
+../Inc/core_cm4.h:105:8: error: #error "Compiler generates FPU instructions for a device without an FPU (check __FPU_PRESENT)"
+  105 |       #error "Compiler generates FPU instructions for a device without an FPU (check __FPU_PRESENT)"
+      |        ^~~~~
+In file included from ../Src/main.c:3:
+../Inc/core_cm4.h:1688:39: error: unknown type name 'IRQn_Type'; did you mean 'ITM_Type'?
+ 1688 | __STATIC_INLINE void __NVIC_EnableIRQ(IRQn_Type IRQn)
+      |                                       ^~~~~~~~~
+      |                                       ITM_Type
+../Inc/core_cm4.h:1705:46: error: unknown type name 'IRQn_Type'; did you mean 'ITM_Type'?
+ 1705 | __STATIC_INLINE uint32_t __NVIC_GetEnableIRQ(IRQn_Type IRQn)
+      |                                              ^~~~~~~~~
+      |                                              ITM_Type
+../Inc/core_cm4.h:1724:40: error: unknown type name 'IRQn_Type'; did you mean 'ITM_Type'?
+ 1724 | __STATIC_INLINE void __NVIC_DisableIRQ(IRQn_Type IRQn)
+      |                                        ^~~~~~~~~
+      |                                        ITM_Type
+../Inc/core_cm4.h:1743:47: error: unknown type name 'IRQn_Type'; did you mean 'ITM_Type'?
+ 1743 | __STATIC_INLINE uint32_t __NVIC_GetPendingIRQ(IRQn_Type IRQn)
+      |                                               ^~~~~~~~~
+      |                                               ITM_Type
+../Inc/core_cm4.h:1762:43: error: unknown type name 'IRQn_Type'; did you mean 'ITM_Type'?
+ 1762 | __STATIC_INLINE void __NVIC_SetPendingIRQ(IRQn_Type IRQn)
+      |                                           ^~~~~~~~~
+      |                                           ITM_Type
+../Inc/core_cm4.h:1777:45: error: unknown type name 'IRQn_Type'; did you mean 'ITM_Type'?
+ 1777 | __STATIC_INLINE void __NVIC_ClearPendingIRQ(IRQn_Type IRQn)
+      |                                             ^~~~~~~~~
+      |                                             ITM_Type
+../Inc/core_cm4.h:1794:43: error: unknown type name 'IRQn_Type'; did you mean 'ITM_Type'?
+ 1794 | __STATIC_INLINE uint32_t __NVIC_GetActive(IRQn_Type IRQn)
+      |                                           ^~~~~~~~~
+      |                                           ITM_Type
+../Inc/core_cm4.h:1816:41: error: unknown type name 'IRQn_Type'; did you mean 'ITM_Type'?
+ 1816 | __STATIC_INLINE void __NVIC_SetPriority(IRQn_Type IRQn, uint32_t priority)
+      |                                         ^~~~~~~~~
+      |                                         ITM_Type
+../Inc/core_cm4.h:1838:45: error: unknown type name 'IRQn_Type'; did you mean 'ITM_Type'?
+ 1838 | __STATIC_INLINE uint32_t __NVIC_GetPriority(IRQn_Type IRQn)
+      |                                             ^~~~~~~~~
+      |                                             ITM_Type
+../Inc/core_cm4.h: In function 'NVIC_EncodePriority':
+../Inc/core_cm4.h:1869:64: error: '__NVIC_PRIO_BITS' undeclared (first use in this function)
+ 1869 |   PreemptPriorityBits = ((7UL - PriorityGroupTmp) > (uint32_t)(__NVIC_PRIO_BITS)) ? (uint32_t)(__NVIC_PRIO_BITS) : (uint32_t)(7UL - PriorityGroupTmp);
+      |                                                                ^~~~~~~~~~~~~~~~
+../Inc/core_cm4.h:1869:64: note: each undeclared identifier is reported only once for each function it appears in
+../Inc/core_cm4.h: In function 'NVIC_DecodePriority':
+../Inc/core_cm4.h:1896:64: error: '__NVIC_PRIO_BITS' undeclared (first use in this function)
+ 1896 |   PreemptPriorityBits = ((7UL - PriorityGroupTmp) > (uint32_t)(__NVIC_PRIO_BITS)) ? (uint32_t)(__NVIC_PRIO_BITS) : (uint32_t)(7UL - PriorityGroupTmp);
+      |                                                                ^~~~~~~~~~~~~~~~
+../Inc/core_cm4.h: At top level:
+../Inc/core_cm4.h:1913:39: error: unknown type name 'IRQn_Type'; did you mean 'ITM_Type'?
+ 1913 | __STATIC_INLINE void __NVIC_SetVector(IRQn_Type IRQn, uint32_t vector)
+      |                                       ^~~~~~~~~
+      |                                       ITM_Type
+../Inc/core_cm4.h:1928:43: error: unknown type name 'IRQn_Type'; did you mean 'ITM_Type'?
+ 1928 | __STATIC_INLINE uint32_t __NVIC_GetVector(IRQn_Type IRQn)
+      |                                           ^~~~~~~~~
+      |                                           ITM_Type
+../Src/main.c: In function 'pc13_exti_init':
+../Src/main.c:391:2: error: 'GPIOC' undeclared (first use in this function); did you mean 'GPIOA'?
+  391 |  GPIOC->MODER &= ~BIT_26;
+      |  ^~~~~
+      |  GPIOA
+../Src/main.c:399:2: error: 'SYSCFG' undeclared (first use in this function); did you mean 'SYSCFGEN'?
+  399 |  SYSCFG->EXTICR[3] |= BIT_5;   // EXTICR[3] means SYSCFG_EXTICR4.
+      |  ^~~~~~
+      |  SYSCFGEN
+../Src/main.c:405:2: error: 'EXTI' undeclared (first use in this function)
+  405 |  EXTI->IMR |= BIT_13;
+      |  ^~~~
+In file included from ../Src/main.c:3:
+../Inc/core_cm4.h:1614:39: warning: implicit declaration of function '__NVIC_EnableIRQ'; did you mean 'NVIC_EnableIRQ'? [-Wimplicit-function-declaration]
+ 1614 |   #define NVIC_EnableIRQ              __NVIC_EnableIRQ
+      |                                       ^~~~~~~~~~~~~~~~
+../Src/main.c:415:2: note: in expansion of macro 'NVIC_EnableIRQ'
+  415 |  NVIC_EnableIRQ(40);
+      |  ^~~~~~~~~~~~~~
+make: *** [Src/subdir.mk:25: Src/main.o] Error 1
+"make -j8 all" terminated with exit code 2. Build might be incomplete.
+
+01:26:11 Build Failed. 18 errors, 1 warnings. (took 292ms)
+

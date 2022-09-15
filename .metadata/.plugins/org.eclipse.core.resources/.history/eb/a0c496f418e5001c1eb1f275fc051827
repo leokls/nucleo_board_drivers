@@ -1,0 +1,46 @@
+// BHM Engineering Academy
+// https://cortex-m.com/lessons/
+// Embedded Systems Bare-Metal Programming Ground Up™ (STM32)
+// 05_uart_tx
+
+#include "stm32f4xx.h"
+
+#define TIM2EN		(1U<<0)
+#define CR1_CEN		(1U<<0)
+#define DIER_UIE	 (1U<<0)
+
+void tim2_1hz_interrupt_init(void)
+{
+	// 1. Enable clock access to TIM2, timer 2.
+	// RM0383-STM32F411XCE-REFERENCE-MANUAL.PDF
+	// 6.3.11 RCC APB1 peripheral clock enable register (RCC_APB1ENR).
+	// TIM2 EN, bit 0
+	RCC->APB1ENR |= TIM2EN;
+
+	// 2. Configure the pre-scaler register.
+	// The default system timer is 16 Mhz.
+	// Pres-caler register.
+	TIM2->PSC = 1600 - 1;   // 16.000.000 / 1.600 = 10.000
+
+	// 3. Configure the auto-reload register.
+	// Reduce this system timer to 1Hz
+	TIM2->ARR = 10000 - 1;  // 10.000 / 10.000 = 1
+
+	// 4. Clear up the counter register.
+	TIM2->CNT = 0;
+
+	// 5. Enable timer.
+	// 12.4.1 TIM1 control register 1.
+	// Bit 0 CEN: Counter enable
+	// Overwrite other values; only need bit 0.
+	TIM2->CR1 = CR1_CEN;
+
+	// Enable the timer interrupt.
+	// RM0383-STM32F411XCE-REFERENCE-MANUAL.PDF
+	// 12.4.4 TIM1 DMA/interrupt enable register (TIMx_DIER).
+	// Bit 0: UIE, Update interrupt enable. 0: dis, 1: en.
+	TIM2->DIER |= DIER_UIE;
+
+	/*Enable TIM interrupt in NVIC*/
+	 NVIC_EnableIRQ(TIM2_IRQn);
+}

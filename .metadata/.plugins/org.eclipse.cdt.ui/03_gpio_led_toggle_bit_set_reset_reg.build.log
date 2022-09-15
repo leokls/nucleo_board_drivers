@@ -1,0 +1,10 @@
+01:49:28 **** Build of configuration Debug for project 03_gpio_led_toggle_bit_set_reset_reg ****
+make -j8 all 
+arm-none-eabi-size   03_gpio_led_toggle_bit_set_reset_reg.elf 
+   text	   data	    bss	    dec	    hex	filename
+    764	      8	   1568	   2340	    924	03_gpio_led_toggle_bit_set_reset_reg.elf
+Finished building: default.size.stdout
+ 
+
+01:49:29 Build Finished. 0 errors, 0 warnings. (took 177ms)
+

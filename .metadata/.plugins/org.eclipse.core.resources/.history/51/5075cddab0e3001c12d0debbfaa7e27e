@@ -1,0 +1,56 @@
+#ifndef UART_H
+#define UART_H
+
+#include <stdint.h>
+
+// ------- --------- --------- --------- --------- --------- --------- --------
+// ------ 1. Define the number of USART peripherals of the microcontroller.
+// STM32F411CE_DATASHEET.PDF, Block Diagram.
+// USART2 is hanging on APB1 bus.
+// USART2 is connected to the USB through the debugger.
+// RM0383-STM32F411XCE-REFERENCE-MANUAL.PDF
+// ------ 2. Check the RCC APB1 clock enable register.
+// 6.3.11. Bit 17 for USART2 EN.
+#define USART2EN 				(1U << 17);
+// ------ 3. Find out which GPIO pins the USART2 peripheral uses.
+// STM32F411CE_DATASHEET.PDF, Table 9. Alternate function mapping.
+// (PA2, AF07): Enable and configure PA2 to use USART2 TX.
+
+// Table 10. STM32F411xC/xE register boundary addresses.
+#define APB1_PERIPHERAL_BASE	BLOCK2_PERIPH_BASE
+#define USART2_OFFSET			(0x4400UL)
+#define USART2_BASE			    (APB1_PERIPHERAL_BASE + USART2_OFFSET)
+
+// ------- --------- --------- --------- --------- --------- --------- --------
+#define SYS_FREQ 				16000000	   // The default system frequency.
+
+// In the clock tree, the system clock value is divided by a value to be used
+// as the clock for APB bus. In the default state, the divider for the busses
+// equals 1.
+#define APB1_CLK  				SYS_FREQ       // The same as the system clock.
+#define UART_BAUDRATE    		115200		   // A popular Baudrate.
+
+// ------- --------- --------- --------- --------- --------- --------- --------
+// RM0383-STM32F411XCE-REFERENCE-MANUAL.PDF
+// 19.6.4 Control register 1 (USART_CR1).
+#define CR1_TE					(1U << 3)      // Bit 3: TE: Transmitter enable.
+#define CR1_RE					(1U << 2)      // Bit 13 UE: USART enable.
+
+#define CR1_UE					(1U << 13)     // Bit 13 UE: USART enable.
+
+// 19.6.1 USART_SR.
+#define SR_TXE					(1U << 7)      // Transmit data register empty.
+#define SR_RXNE					(1U << 5)      // Read data register not empty.
+
+// ------- --------- --------- --------- --------- --------- --------- --------
+
+static uint16_t compute_uart_bd(uint32_t PeriphClk, uint32_t Baudrate);
+static void uart_set_baudrate(USART_TypeDef *USARTx, uint32_t PeriphClk, uint32_t Baudrate);
+void uart2_rxtx_init(void);
+void uart2_write(int ch);
+char uart2_read(void);
+
+
+#endif // _UART_H
+
+
